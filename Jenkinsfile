@@ -15,23 +15,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building ${env.PROJECT_NAME}..."
-               
             }
         }
 
         stage('Test') {
             steps {
                 echo "Running tests..."
-               
             }
         }
 
         stage('Deploy') {
             steps {
                 echo "Deploying application..."
-                
+            }
         }
-    }
+    } // ← this was missing
 
     post {
         success {
