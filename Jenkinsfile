@@ -8,32 +8,28 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
+                echo "git-webhook session"
             }
         }
 
         stage('Build') {
             steps {
                 echo "Building ${env.PROJECT_NAME}..."
-                // Example: Compile code, run build tools, etc.
-                sh 'make build'  // or 'mvn clean package' if using Maven
+               
             }
         }
 
         stage('Test') {
             steps {
                 echo "Running tests..."
-                // Run unit tests or integration tests
-                sh 'make test'
+               
             }
         }
 
         stage('Deploy') {
             steps {
                 echo "Deploying application..."
-                // Example deployment step (replace with your own)
-                sh './scripts/deploy.sh'
-            }
+                
         }
     }
 
