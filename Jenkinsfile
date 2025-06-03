@@ -1,43 +1,46 @@
 pipeline {
-    agent any  // Run on any available agent
+    agent any
 
-    environment {
-        PROJECT_NAME = "my-sample-app"
+    parameters {
+        choice(
+            name: 'START_STAGE',
+            choices: ['All', 'Build', 'Test', 'Deploy'],
+            description: 'Stage to start from'
+        )
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                echo "git-webhook session 0121319999999"
-            }
-        }
-
         stage('Build') {
+            when {
+                expression {
+                    params.START_STAGE == 'All' || params.START_STAGE == 'Build'
+                }
+            }
             steps {
-                echo "Building ${env.PROJECT_NAME}..."
+                echo "Running Build Stage"
             }
         }
 
         stage('Test') {
+            when {
+                expression {
+                    params.START_STAGE == 'All' || params.START_STAGE == 'Test'
+                }
+            }
             steps {
-                echo "Running tests..."
-                 echo "Running hemanth."
+                echo "Running Test Stage"
             }
         }
 
         stage('Deploy') {
-            steps {
-                echo "Deploying application..."
+            when {
+                expression {
+                    params.START_STAGE == 'All' || params.START_STAGE == 'Deploy'
+                }
             }
-        }
-    } // ← this was missing
-
-    post {
-        success {
-            echo "Pipeline completed successfully!"
-        }
-        failure {
-            echo "Pipeline failed. Investigate the logs."
+            steps {
+                echo "Running Deploy Stage"
+            }
         }
     }
 }
