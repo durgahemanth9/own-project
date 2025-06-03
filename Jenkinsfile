@@ -10,18 +10,28 @@ pipeline {
     }
 
     stages {
+        stage('Checkout SCM') {
+            when {
+                expression {
+                    params.START_STAGE == 'All' || params.START_STAGE == 'Build'
+                }
+            }
+            steps {
+                git branch: 'main', url: 'https://github.com/amarss321/End-to-End-Devops-WorkShop.git'
+            }
+        }
+
         stage('Build') {
             when {
                 expression {
                     params.START_STAGE == 'All' || params.START_STAGE == 'Build'
                 }
             }
-            
-      stage("Checkout SCM"){
-            steps{
-                git branch: 'main', url: 'https://github.com/amarss321/End-to-End-Devops-WorkShop.git'
+            steps {
+                echo "Running Build Stage"
             }
-      }
+        }
+
         stage('Test') {
             when {
                 expression {
@@ -44,5 +54,4 @@ pipeline {
             }
         }
     }
-}
 }
