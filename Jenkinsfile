@@ -18,6 +18,7 @@ pipeline {
             }
             steps {
                 echo "Running Build Stage"
+                sh "git branch: 'main', url: 'https://github.com/durgahemanth9/own-project.git' "
             }
         }
 
