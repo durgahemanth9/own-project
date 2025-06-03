@@ -21,7 +21,7 @@ pipeline {
             steps{
                 git branch: 'main', url: 'https://github.com/amarss321/End-to-End-Devops-WorkShop.git'
             }
-
+      }
         stage('Test') {
             when {
                 expression {
